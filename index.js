@@ -7,6 +7,7 @@ const { Pool } = require('pg')
 const pool = new Pool({connectionString: connectionString});
 const passwordHash = require('password-hash');
 const session = require('client-sessions');
+const url = require('url');
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -30,7 +31,6 @@ express()
                 wishlistUser : req.params.username
             }   
         }
-        console.log(params);
         res.render('pages/view',params);
        });     
   })
@@ -41,7 +41,6 @@ express()
     const hashedPassword = passwordHash.generate(password);
     addUserToDb(username, hashedPassword, email, function(err, result){
         if(err){ console.log(err); }
-        console.log(result);
         
         let sendBack = {
           'success' : true,

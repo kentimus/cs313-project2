@@ -11,7 +11,15 @@ $(document).ready(function(){
                 'password' : password
 			} , function(data){
 				if(data.success === true){
-                    alert(data.username + " has been added");
+                    // make some changes to dom based on signed in user
+                    $("#product-search-username").text(data.username);
+                    $("#global-username").val(data.username);
+                    $("#view-link").attr("href", "/view/" + data.username);
+                    
+                    // hide sign in form, show product search form
+                    $("#signin-container").fadeOut(400, 'swing', function(){
+                        $("#product-search").fadeIn();
+                    });
                 } else {
                     alert("there was an error");
                 }
@@ -45,5 +53,12 @@ $(document).ready(function(){
                 }
 			}, 'json'
 		)
+    });
+    
+    $("#search-box").on("keyup", function(){
+        // this event listener will query Walmarts product search api
+        
+        let message = "<div class='alert alert-warning'><p><strong>Oh No!</strong>The searchbar doesn't work yet!</p></div>";
+        $("#results-container").html(message); 
     });
 });
