@@ -30,11 +30,19 @@ $(document).ready(function(){
                 'password' : password
 			} , function(data){
 				if(data.success === true){
-                    alert(data.username + " has been found");
+                    // make some changes to dom based on signed in user
+                    $("#product-search-username").text(data.username);
+                    $("#global-username").val(data.username);
+                    $("#view-link").attr("href", "/view/" + data.username);
+                    
+                    // hide sign in form, show product search form
+                    $("#signin-container").fadeOut(400, 'swing', function(){
+                        $("#product-search").fadeIn();
+                    });
                 } else {
-                    alert(data.message);
+                    let message = "<div class='alert alert-warning'><p>" + data.message + "</p></div>"
+                    $("#signin-alert").html(message);
                 }
-				
 			}, 'json'
 		)
     });

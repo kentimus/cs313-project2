@@ -19,6 +19,21 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
+  .get('/view/:username', function(req, res){
+    getWishlist(req.params.username, function(err, items){
+       if(err){
+            // do some error stuff here
+        } else {
+            var params = {
+                error    : null,
+                items    : items,
+                wishlistUser : req.params.username
+            }   
+        }
+        console.log(params);
+        res.render('pages/view',params);
+       });     
+  })
   .get('/add-new-user', function(req, res){
     const username = req.query.username;
     const password = req.query.password;
@@ -76,4 +91,31 @@ function getUser(username, callback){
         if(err){ console.log(err); }
         callback(null, result.rows);
     });
+}
+function getWishlist(username, callback){
+    // this function will eventually get items from the database.
+    // for now, just sends back dummy data
+    let items = {
+        "items" : [
+            { 
+                "name" : "kayak1",
+                'price' : '$199.99',
+                'url'   : 'https://walmart.com',
+                'thumb' : 'https://kentroper.com/eraseme/kayak.jpg'
+            },
+            { 
+                "name" : "kayak2",
+                'price' : '$299.99',
+                'url'   : 'https://walmart.com',
+                'thumb' : 'https://kentroper.com/eraseme/kayak.jpg'
+            },
+            { 
+                "name" : "kayak3",
+                'price' : '$399.99',
+                'url'   : 'https://walmart.com',
+                'thumb' : 'https://kentroper.com/eraseme/kayak.jpg'
+            }
+        ]
+    };
+    callback(null, items);
 }
