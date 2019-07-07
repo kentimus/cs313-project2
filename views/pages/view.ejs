@@ -10,7 +10,12 @@
     </section>
     <section class="container">
         <h2>Wishlist for: <%= wishlistUser %></h2>
-        <table class="table">
+        <% if(error != null){ %>
+            <div class="alert alert-danger">
+                <p>Could not find wishlist for <strong><%= wishlistUser %></strong></p>
+            </div>
+        <% } else { %>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Thumb</th>
@@ -19,15 +24,16 @@
                 </tr>
             </thead>
             <tbody>
-                <% for(var i=0; i<items.items.length; i++){ %>
+                <% for(var i=0; i<items.length; i++){ %>
                 <tr>
-                    <td><img src="<%= items.items[i].thumb %>" class="wishlist-thumb"></td>
-                    <td><a href="<%= items.items[i].url %>" target="_blank"><%= items.items[i].name %></a></td>
-                    <td><%= items.items[i].price %></td>
+                    <td><img src="<%= items[i].thumb %>" class="wishlist-thumb"></td>
+                    <td><a href="<%= items[i].url %>" target="_blank"><%= items[i].name %></a></td>
+                    <td>$<%= items[i].price %></td>
                 </tr>
                 <% } %>
             </tbody>
         </table>
+        <% } %>
     </section>
 </main>
 
