@@ -9,8 +9,8 @@ const userModel = require("./models/userModel.js");
 const wishlistModel = require("./models/wishlistModel.js");
 const amazon = require('amazon-product-api');
 const client = amazon.createClient({
-  awsId: "W7JRL+kAxQv6gkc/jTjX0eo6IWFnGAbvBcUR+/Ss",
-  awsSecret: process.env.AWS_SECRET,
+  awsId: "AKIAICW76V7ZIZKF5IOA",
+  awsSecret: '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',
   awsTag: "itscheese-20"
 });
 
