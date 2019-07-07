@@ -84,6 +84,13 @@ $(document).ready(function(){
                 $("#results-container").html("");
                 for(let i=0; i<data.length; i++){
                     if(typeof data[i].LargeImage !== 'undefined'){
+                        let formattedprice = "";
+                        let price = 0;
+                        if(typeof data[i].ItemAttributes[0].ListPrice !== 'undefined'){
+                            formattedprice = data[i].ItemAttributes[0].ListPrice[0].FormattedPrice[0];
+                            price = data[i].ItemAttributes[0].ListPrice[0].Amount[0]
+                        } 
+                        
                         let message = "<div class='card'>";
                         message += "<div class='card-header'>";
                         message += data[i].ItemAttributes[0].Title;
@@ -93,10 +100,10 @@ $(document).ready(function(){
                         message += data[i].LargeImage[0].URL;
                         message += "' class='img-fluid'></div>";
                         message += "<div class='card-footer'>";
-                        message += data[i].ItemAttributes[0].ListPrice[0].FormattedPrice[0];
+                        message += formattedprice;
                         message += "<br><button class='wishlist-button btn btn-primary' ";
                         message += "data-name='" + data[i].ItemAttributes[0].Title + "' ";
-                        message += "data-price='" + data[i].ItemAttributes[0].ListPrice[0].Amount[0] + "' ";
+                        message += "data-price='" + price + "' ";
                         message += "data-url='" + data[i].DetailPageURL[0] + "' ";
                         message += "data-thumb='" + data[i].LargeImage[0].URL + "' ";
                         message += ">add to wishlist</button> ";
