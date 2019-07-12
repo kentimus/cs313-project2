@@ -20,7 +20,17 @@ function getWishlist(user_id, callback){
     });
 }
 
+function deleteItem(id, userid, callback){
+    let sql = "DELETE FROM wishlist WHERE id = $1 AND user_id = $2";
+    let params = [id, userid];
+    pool.query(sql, params, function(err, result){
+       if(err){ console.log(err); }
+        callback(null, result);
+    });
+}
+
 module.exports = {
     addItem     : addItem,
-    getWishlist : getWishlist
+    getWishlist : getWishlist,
+    deleteItem  : deleteItem
 }

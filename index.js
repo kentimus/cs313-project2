@@ -34,9 +34,7 @@ express()
     res.render('pages/index', params);
   })
   .get('/view/:username', function(req, res){
-    console.log("37!");
     if(req.params.username){
-        console.log(req.params.username);
         userModel.getUser(req.params.username, function(err, result){
             if(result[0]){
                 wishlistModel.getWishlist(result[0].id, function(err, items){
@@ -111,13 +109,14 @@ express()
                 sendBack.message = "incorrect password";
             }
         }
+        req.session.userid = result[0].id;
         req.session.username = username;
         res.status(200).json(sendBack);
     });
   })
   .get('/sign-out', function(req, res){
-    console.log("93");
-    req.session.username=null;
+    //req.session.username=null;
+    req.session.destroy();
     res.end("logged out");
   })
   .get('/amazon', function(req, res){
@@ -131,6 +130,17 @@ express()
       } else {
         res.status(200).json(results);
       }
+    });
+  })
+  .get('/remove', function(req, res){
+    let id = req.query.id;
+    let userid = req.session.userid;
+    wishlistModel.deleteItem(id, userid, function(err, result){
+        if(result.rowCount > 0){
+            res.status(200).json({ 'success' : true });   
+        } else {
+            res.status(200).json({ 'success' : false });
+        }
     });
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))

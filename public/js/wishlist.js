@@ -62,8 +62,16 @@ $(document).ready(function(){
                     // change navbar to show signed in
                     let nav_part = "<li class='nav-item'><span class='navbar-text'>Welcome ";
                     nav_part += username +"</span></li><li class='nav-item'>";
+                    nav_part += "<a class='nav-link' href='";
+                    nav_part += "/view/" + username;
+                    nav_part += "'>View Your Wishlist</a></li>";
+                    nav_part += "<li class='nav-item'>";
                     nav_part += "<a class='nav-link log-out' href='#'>Log out</a></li>";
                     $("#navbar-right-ul").html(nav_part);
+                    
+                    // sign in form will be hidden, but we need to clear out the form values
+                    $("#signin-username").val("");
+                    $("#signin-password").val("");
                 } else {
                     let message = "<div class='alert alert-warning'><p>" + data.message + "</p></div>"
                     $("#signin-alert").html(message);
@@ -127,8 +135,13 @@ $(document).ready(function(){
                 let nav_part = "<li class='nav-item'><a class='nav-link' href='/' >Log In</a></li>";
                 $("#navbar-right-ul").html(nav_part);
                 $("#product-search").fadeOut(400, 'swing', function(){
+                    // if we are on the main page:
                     $("#signin-container").fadeIn();
                 });
+            
+                // if we are on the view page
+                // remove the "remove" buttons
+                $(".remove-button").remove();
 			}, 'html'
 		); 
     });
@@ -153,6 +166,16 @@ $(document).ready(function(){
     $(".remove-button").on("click", function(){
         let removeButton = $(this);
         let wishlistId = removeButton.data('id');
-        alert(wishlistId);
+        let row = $(this).parent().parent();
+        $.get('/remove', {
+                'id' : wishlistId
+            } , function(data){
+                if(data.success == true){
+                    row.fadeOut(400);
+                } 
+			}, 'json'
+		); 
+        
+        
     });
 });
