@@ -1,5 +1,64 @@
+body{
+    background: url(../images/notepad.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: 'Raleway', sans-serif;
+}
+
+
+h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, p.searching{
+    font-family: 'Barriecito', cursive;
+}
+
+h1, h2 {
+    color : white;
+/*    background-color : #343a40;*/
+    background-color : rgba(52, 58, 64, .8);
+    margin : 20px 0;
+    padding :5px;
+}
+
+h2 span{
+    color : yellow;
+}
+
+label{
+    margin-bottom: 0;
+}
+
+#sign-up-form, #sign-in-form{
+    background-color : rgba(255,255,255,.3);
+    padding : 5px;
+}
+
+.btn-primary{
+    background-color : rgba(52, 58, 64, .8);
+    border : 1px solid yellow;
+}
+.btn-success{
+    color : yellow;
+}
+
+p.instructions{
+    background-color : rgba(255,255,0, .5);
+    padding: 5px 10px;
+}
+p.searching{
+    background-color : rgba(52, 58, 64, .8);
+    padding: 5px 10px;
+    color : yellow;
+    font-size: 1.4rem;
+}
+
+
+.card-header, .card-footer{
+    background-color : rgba(52, 58, 64, .8);
+    color : white;
+}
+
 #product-search{
-    display : none
+    display : none;
 }
 
 .wishlist-thumb{
@@ -9,4 +68,9 @@
 
 .navbar-dark .navbar-text{
     color : yellow;
+}
+
+
+table.table-dark{
+    background-color : rgba(52, 58, 64, .8);
 }

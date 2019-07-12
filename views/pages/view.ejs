@@ -4,31 +4,42 @@
 <main>
     <input type="hidden" id="global-username">
     <section class='container'>
-        <div class="col-md-12">
-            <h1>Kent's Fancy Wishlist Site</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Kent's Fancy Wishlist Site</h1>
+            </div>
         </div>
     </section>
     <section class="container">
-        <h2>Wishlist for: <%= wishlistUser %></h2>
+        <h2>Wishlist for: <span><%= wishlistUser %></span></h2>
         <% if(error != null){ %>
             <div class="alert alert-danger">
                 <p>Could not find wishlist for <strong><%= wishlistUser %></strong></p>
             </div>
         <% } else { %>
-        <table class="table table-striped">
+        <table class="table table-striped table-dark">
             <thead>
                 <tr>
                     <th>Thumb</th>
                     <th>Item</th>
                     <th>Price</th>
+                    <% if(wishlistUser == username){ %>
+                    <th>&nbsp;</th>
+                    <% } %>
                 </tr>
             </thead>
             <tbody>
                 <% for(var i=0; i<items.length; i++){ %>
                 <tr>
                     <td><img src="<%= items[i].thumb %>" class="wishlist-thumb"></td>
-                    <td><a href="<%= items[i].url %>" target="_blank"><%= items[i].name %></a></td>
+                    <td><span class='list-item-name'><%= items[i].name %></span><br>
+                        <a class='btn btn-primary' href="<%= items[i].url %>" target="_blank">View on amazon.com</a>
+                    
+                    </td>
                     <td>$<%= items[i].price %></td>
+                    <% if(wishlistUser == username){ %>
+                    <td><button class='btn btn-secondary remove-button' data-id="<%= items[i].id %>">Remove</button></td>
+                    <% } %>
                 </tr>
                 <% } %>
             </tbody>

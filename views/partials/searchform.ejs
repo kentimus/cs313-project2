@@ -3,15 +3,20 @@
             <div class="col-md-12">
                 <h2>Welcome <span id="product-search-username"><%= username %></span>!</h2>
                 
-                <p>Use the form below to search for products or <a id="view-link" href="/view/<%= username %>">view your wishlist</a></p>
+                <p class='instructions'>Use the form below to search for products or <a id="view-link" href="/view/<%= username %>">view your wishlist</a></p>
                 
                 <form id="product-search-form">
-                    <input type="text" class="form-control" id="search-box" placeholder="Search for Items to add to your wishlist">
-                    <button type="submit" class="btn btn-primary">Search!</button>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="search-box" placeholder="Search for Items to add to your wishlist">
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="form-control btn btn-primary">Search!</button>
+                        </div>
+                    </div>
                 </form>
-                <div id="results-container" class='card-columns'>
-                    
-                </div>
+                <div id="loading-message-container"></div>
+                <div id="results-container" class='card-columns'></div>
             </div>
         </div>
     </section>

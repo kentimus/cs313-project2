@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    //alert($("#global-username").val());
     if($("#global-username").val() != null && $("#global-username").val() != ""){
         $("#signin-container").hide();
         $("#product-search").show();
@@ -76,12 +75,14 @@ $(document).ready(function(){
     $("#product-search-form").on("submit", function(event){
         event.preventDefault();
         const keywords = $("#search-box").val();
+        $("#results-container").html("");
+        $("#loading-message-container").html("<p class='searching'>Searching  ... </p>");
         
         $.get('/amazon', {
                 'keywords' : keywords
             } , function(data){
+                $("#loading-message-container").html("");
                 console.log(data);
-                $("#results-container").html("");
                 for(let i=0; i<data.length; i++){
                     if(typeof data[i].LargeImage !== 'undefined'){
                         let formattedprice = "";
@@ -135,6 +136,7 @@ $(document).ready(function(){
     $(document).on("click", ".wishlist-button", function(event){
         event.preventDefault();
         let addButton = $(this);
+        addButton.text("adding ...");
         $.get('/add-to-wishlist', {
             'name'  : $(this).data('name'),
             'price' : Number($(this).data('price')) / 100,
@@ -146,5 +148,11 @@ $(document).ready(function(){
             addButton.attr("disabled", true);
             addButton.text("item added");
         }, 'html');
+    });
+    
+    $(".remove-button").on("click", function(){
+        let removeButton = $(this);
+        let wishlistId = removeButton.data('id');
+        alert(wishlistId);
     });
 });
