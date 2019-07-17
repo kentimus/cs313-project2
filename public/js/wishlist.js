@@ -31,6 +31,11 @@ $(document).ready(function(){
                     nav_part += username +"</span></li><li class='nav-item'>";
                     nav_part += "<a class='nav-link log-out' href='#'>Log out</a></li>";
                     $("#navbar-right-ul").html(nav_part);
+                    
+                    // sign up form will be hidden, but we need to clear out the form values
+                    $("#signup-username").val("");
+                    $("#signup-email").val("");
+                    $("#signup-password").val("");
                 } else {
                     alert("there was an error");
                 }
